@@ -1,0 +1,23 @@
+{
+  "name": "vk_chat_bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "add.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dom-parser": "^0.1.6",
+    "express": "^4.17.1",
+    "form-data": "^3.0.0",
+    "google-images": "^2.1.0",
+    "got": "^11.8.0",
+    "node-vk-bot-api": "^3.3.7",
+    "tiktok-scraper": "^1.4.4",
+    "tough-cookie": "^4.0.0",
+    "wikijs": "^6.0.1"
+  }
+}
