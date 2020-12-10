@@ -10,9 +10,14 @@ import('./modules/tiktok.js');
 //vk_utils.getMessageAttachmentUrl('https://sun9-40.userapi.com/impg/y2-jk0N1wt_jyKzfMm_rpKOx7TMzlbQl6dkzfQ/kfuD06FdPVE.jpg?size=810x1080&quality=96&sign=5afa9c880242a2a016ef078611a3232b');
 const bot = new VkBot(process.env.TOKEN_VK);
 
+bot.event('message_new', (ctx) => {
+    ctx.reply('Your message was editted');
+});
+
 bot.on((ctx) => {
     let message = ctx.message.body;
-    Commands.getCommand(0).func(ctx, [message]);
+    let command = Commands.perseCommand(message);
+    command.func(ctx, [command.message])
     /*client.search()
         .then(images => {
             if (images.length > 0)
