@@ -11,11 +11,10 @@ function getCommand(index) {
 }
 
 function parseCommand(match) {
-    let command = COMMANDS.filter(item => item.data.pattern.test(match));
-    if (command !== undefined && command.length > 0) {
-        command[0].data.pattern.test(match);
-        command[0].message = RegExp.$1;
-        return command[0];
+    let command = COMMANDS.find(item => item.data.pattern.test(match));
+    if (command !== undefined) {
+        command.message = RegExp.$1;
+        return command;
     }
 }
 

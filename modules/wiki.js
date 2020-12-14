@@ -5,7 +5,7 @@ const url = `https://ru.wikipedia.org/w/api.php`;
 const vk_utils = require('./vk_utils')
 
 Commands.addCommand(
-    {pattern: /\? ?(.*)/, desc: Lang.WIKI_DESC, usage: '? Пермь'},
+    {pattern: /^\? ?(.*)/, desc: Lang.WIKI_DESC, usage: '? Пермь'},
     async (message, match) => {
         if (match[0] === '') {
             const wikiSearch = await wiki({apiUrl: url}).random(1);
@@ -36,7 +36,7 @@ async function sendWikiEmbed(message, wikiSearch) {
         reply += wikiSummary.toString();
     }
 
-    vk_utils.uploadImage(wikiImage)
+    vk_utils.uploadImage(wikiImage, message)
         .then((imageAttach) =>
             message.reply(reply, imageAttach));
 }

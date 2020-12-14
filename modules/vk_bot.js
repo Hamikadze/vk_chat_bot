@@ -1,27 +1,13 @@
-const Commands = require('./modules/Commands');
-import('./modules/weather.js');
-import('./modules/wiki.js');
-import('./modules/google_image.js');
-import('./modules/tiktok.js');
-const easyvk = require("easyvk");
-
-
-const {Debugger} = easyvk
-
-let debug = new Debugger();
-
-debug.on('response', ({body}) => {
-    console.log(body)
-})
-
-debug.on('request', ({query, url, method}) => {
-    console.log(method, url, query)
-})
+const Commands = require('./Commands');
+import('./weather.js');
+import('./wiki.js');
+import('./google_image.js');
+import('./tiktok.js');
+const easyvk = require('easyvk')
 
 easyvk({
     utils: {
         longpoll: true,
-        uploader: true,
     },
     username: process.env.login,
     password: process.env.password,
@@ -50,7 +36,7 @@ easyvk({
             if (!fullMessage.out) {
                 let command = Commands.perseCommand(fullMessage.text);
                 if (command !== undefined)
-                    command.func(new ctx(fullMessage.peer_id, vk), [command.message])
+                    command.func(new ctx(fullMessage.from_id, vk), [command.message])
             }
         })
     })
@@ -68,7 +54,7 @@ class ctx {
     reply(message, attachment) {
         // Обращаемся к методу messages.send с параметром user_id и message
         this.vk.call('messages.send', {
-            peer_id: this.replyID,
+            user_id: 172849894,//this.replyID,
             message: message, // Текст сообщения, по мануалу ВКонтакте
             attachment: attachment,
             random_id: easyvk.randomId()
@@ -92,4 +78,8 @@ class ctx {
             console.log(error);
         });
     }
+}
+
+module.exports = {
+    easyvk: easyvk,
 }
