@@ -3,7 +3,7 @@ const Commands = require('./Commands');
 const fetch = require('node-fetch');
 
 Commands.addCommand(
-    {pattern: /\/weather ?(.*)/, desc: Lang.WEATHER_DESC, usage: '/weather Пермь'},
+    {pattern: /\/weather ?(.*)/, desc: Lang.DESCRIPTION, usage: '/weather Пермь'},
     async (message, match) => {
         if (match[0] === '') return message.reply(Lang.NEED_LOCATION);
         const url = `http://api.openweathermap.org/data/2.5/weather?q=${encodeURI(match[0])}&units=metric&appid=060a6bcfa19809c2cd4d97a212b19273&language=ru`;

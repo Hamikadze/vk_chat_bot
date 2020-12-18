@@ -5,7 +5,7 @@ const fetch = require('node-fetch');
 
 
 Commands.addCommand(
-    {pattern: /(https:\/\/vm\.tiktok\.com\/.*\/)/, desc: Lang.TIKTOK_DESC, usage: 'https://vm.tiktok.com/ZSs2MAo3/'},
+    {pattern: /(https:\/\/vm\.tiktok\.com\/.*\/)/, desc: Lang.DESCRIPTION, usage: 'https://vm.tiktok.com/ZSs2MAo3/'},
     async (message, match) => {
         if (match[0] === '') return message.reply(Lang.NEED_URL);
         try {
