@@ -1,6 +1,7 @@
 const wiki = require('wikijs').default;
 const Lang = require("./Lang").Wiki;
 const Commands = require('./Commands');
+const {downloadImage} = require("./image_utils");
 const url = `https://ru.wikipedia.org/w/api.php`;
 
 Commands.addCommand(
@@ -28,14 +29,14 @@ async function sendWikiEmbed(message, wikiSearch) {
     let reply =
         `🔎 \`${wikiPage.raw.title.toUpperCase()}\` \n\n`;
     if (wikiSummary.length > 2048) {
-        var sumText = wikiSummary.toString().split('\n');
+        let sumText = wikiSummary.toString().split('\n');
         reply += `${sumText.slice(0, 2).join('\n')}\n` +
             `[...]\n${Lang.CONTINUE_READING}: *${wikiPage.raw.fullurl}*`;
     } else {
         reply += wikiSummary.toString();
     }
 
-    message.uploadImage(wikiImage, message)
-        .then((imageAttach) =>
-            message.reply(reply, imageAttach));
+    const imageAttach = await message.uploadImage(await downloadImage(wikiImage));
+
+    message.reply(reply, imageAttach !== undefined ? imageAttach : null);
 }

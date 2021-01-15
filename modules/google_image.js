@@ -2,7 +2,7 @@ const GoogleImages = require('google-images');
 const Lang = require("./Lang").Google_image;
 const Commands = require('./Commands');
 const client = new GoogleImages(process.env.CSE_ID_GOOGLE, process.env.API_KEY_GOOGLE);
-const fetch = require('node-fetch');
+const {downloadImage} = require("./image_utils");
 
 Commands.addCommand(
     {pattern: /^! ?(.*)/, desc: Lang.DESCRIPTION, usage: '! Пермь'},
@@ -22,11 +22,3 @@ Commands.addCommand(
                 }
             });
     });
-
-async function downloadImage(imageUrl) {
-    let image = await fetch(imageUrl);
-    if (image === undefined || !image.ok) {
-        throw new Error(`unexpected response ${image.statusText}`);
-    }
-    return await image.buffer();
-}
