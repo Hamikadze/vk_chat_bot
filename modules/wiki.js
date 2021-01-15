@@ -2,7 +2,6 @@ const wiki = require('wikijs').default;
 const Lang = require("./Lang").Wiki;
 const Commands = require('./Commands');
 const url = `https://ru.wikipedia.org/w/api.php`;
-const vk_utils = require('./vk_utils')
 
 Commands.addCommand(
     {pattern: /^\? ?(.*)/, desc: Lang.DESCRIPTION, usage: '? Пермь'},
@@ -36,7 +35,7 @@ async function sendWikiEmbed(message, wikiSearch) {
         reply += wikiSummary.toString();
     }
 
-    vk_utils.uploadImage(wikiImage, message)
+    message.uploadImage(wikiImage, message)
         .then((imageAttach) =>
             message.reply(reply, imageAttach));
 }
