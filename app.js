@@ -1,3 +1,5 @@
+
+
 require('dotenv').config()
 const Commands = require('./modules/Commands');
 import('./modules/weather.js');
@@ -8,6 +10,7 @@ const easyvk = require("easyvk");
 const FormData = require('form-data');
 const fetch = require('node-fetch');
 const FileType = require('file-type');
+const {resizeImage} = require("./modules/image_utils");
 const sleep = require('util').promisify(setTimeout);
 
 easyvk({
@@ -95,7 +98,8 @@ class ctx {
         const fileType = await FileType.fromBuffer(buffer);
         if (fileType === undefined || !/image\/.*/.test(fileType.mime))
             return undefined;
-        formData.append('photo', buffer, {filename: `image.${fileType.ext}`});
+        buffer = await resizeImage(buffer);
+        formData.append('photo', buffer, {filename: 'image.jpeg'});
         let uploadedInfo = await fetch(uploadServer.upload_url, {
             method: 'POST',
             body: formData
