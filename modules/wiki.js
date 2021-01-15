@@ -28,10 +28,10 @@ async function sendWikiEmbed(message, wikiSearch) {
 
     let reply =
         `🔎 \`${wikiPage.raw.title.toUpperCase()}\` \n\n`;
-    if (wikiSummary.length > 2048) {
+    if (wikiSummary.length > 1024) {
         let sumText = wikiSummary.toString().split('\n');
         reply += `${sumText.slice(0, 2).join('\n')}\n` +
-            `[...]\n${Lang.CONTINUE_READING}: *${wikiPage.raw.fullurl}*`;
+            `[...]\n${Lang.CONTINUE_READING}: ${wikiPage.raw.fullurl}`;
     } else {
         reply += wikiSummary.toString();
     }
